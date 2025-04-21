@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import { generateToken } from "../utils/utils.js";
 import bcrypt from "bcryptjs";
-
+import cloudinary from "../lib/cloudinary.js";
 
 
 export const signup = async (req, res) => {
@@ -133,7 +133,6 @@ export const updateProfilePic = async (req, res) => {
 
         // Upload the profile picture to Cloudinary (cloudinary will give response with the url of the image)
         const uploadResponse = await cloudinary.uploader.upload(profilePic);
-
 
         // Find the user by ID and update the profile picture
         // The `new: true` option returns the updated user's document
