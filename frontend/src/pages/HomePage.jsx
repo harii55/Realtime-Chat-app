@@ -5,6 +5,7 @@ import NoChatSelected from "../components/NoChatSelected";
 import ChatContainer from "../components/ChatContainer";
 
 const HomePage = () => {
+  //selectUser is the person that holds the account and we r creating the home page for it
   const { selectedUser } = useChatStore();
 
   return (
@@ -12,7 +13,7 @@ const HomePage = () => {
       <div className="flex items-center justify-center pt-20 px-4">
         <div className="bg-base-100 rounded-lg shadow-cl w-full max-w-6xl h-[calc(100vh-8rem)]">
           <div className="flex h-full rounded-lg overflow-hidden">
-            {/* <Sidebar /> */}
+            <Sidebar />
 
             {!selectedUser ? <NoChatSelected /> : <ChatContainer />}
           </div>
