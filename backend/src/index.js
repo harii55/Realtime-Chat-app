@@ -9,12 +9,13 @@ import cookieParser from 'cookie-parser';
 import { app, server } from './lib/socket.js';
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173';
 
 //first allow the frontend to access the backend
 //this is done using the cors middleware
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: CLIENT_URL,
   credentials: true,
 }));
 
@@ -26,9 +27,6 @@ app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 
 app.use(cookieParser());
 //Middleware that allows us to parse cookies from the request headers
-
-app.use(express.json());
-//Middleware that allows us to parse JSON data out of the request body
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
