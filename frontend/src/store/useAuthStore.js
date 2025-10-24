@@ -4,7 +4,7 @@ import { axiosInstance } from '../lib/axios.js';
 import toast from 'react-hot-toast';
 import { io } from 'socket.io-client';
 
-const BASE_URL = "http://localhost:5000"; //Backend URL
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000"; //Backend URL
 
 
 export const useAuthStore = create((set,get) => ({
@@ -106,7 +106,7 @@ export const useAuthStore = create((set,get) => ({
         // This prevents multiple socket connections when the user is already logged in       
         if (!authUser || get().socket?.connected) return;
 
-        const socket = io(BASE_URL, {
+        const socket = io(SOCKET_URL, {
             query: {
                 userId: authUser._id,
             }
