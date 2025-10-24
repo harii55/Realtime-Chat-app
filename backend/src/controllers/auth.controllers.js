@@ -109,9 +109,17 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     // Clear the JWT token by setting the cookie to expire immediately
-    
     try {
-        res.cookie("jwt", "", { maxAge: 0 });
+        // Determine cookie options based on environment (match generateToken settings)
+        const isProduction = process.env.NODE_ENV === 'production';
+        const cookieOptions = {
+            maxAge: 0, // Expire immediately
+            httpOnly: true,
+            sameSite: isProduction ? 'None' : 'strict',
+            secure: isProduction,
+        };
+        
+        res.cookie("jwt", "", cookieOptions);
         res.status(200).json({ message: "Logged out successfully" });
         
     } catch (error) {
